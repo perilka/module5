@@ -15,8 +15,5 @@ else:
 
 # Часть 2
 
-user_date = input('Введите дату в формате "год-месяц-день": ').split('-')
-user_date = [int(x) for x in user_date]
-datetime_date = datetime.date(user_date[0], user_date[1], user_date[2])
-
-print(now.date() - datetime_date)
+parsed_date = datetime.datetime.strptime(input('Введите дату в формате "год-месяц-день": '), "%Y-%m-%d")
+print(now - parsed_date)
