@@ -14,22 +14,17 @@ button_stat_press = False
 
 
 def get_date():
-    now = datetime.datetime.now()
-    date = '.'.join([str(now.day), str(now.month), str(now.year)])
-    return date
+    return datetime.datetime.now().strftime('%d.%m.%Y')
 
 
 def get_time():
-    time_info = time.ctime().split(' ')
-    current_time = time_info[3]
-    return current_time
+    return datetime.datetime.now().strftime('%X')
 
 
-
-## запуск бота
 
 @bot.message_handler(commands=['start'])
 def start(message: telebot.types.Message):
+    "Запуск бота"
 
     global info
 
@@ -86,7 +81,6 @@ def sleep(message: telebot.types.Message):
 
 def ask_about_new_cycle(user, date, m: telebot.types.Message):
     if user.get(date):
-        print('aaaa')
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         button1 = types.KeyboardButton('Да, начать новый цикл')
         button2 = types.KeyboardButton('Оставить предыдущую запись')
