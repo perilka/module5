@@ -1,4 +1,5 @@
-import csv, json
+import csv
+import json
 from pprint import pprint
 
 with open('данные.csv', 'r') as f:
