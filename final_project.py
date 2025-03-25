@@ -11,7 +11,7 @@ with open('student_list.json', 'r') as file:
 def get_average_score(data: dict[str, dict]) -> dict[str, float|int]:
     names = list(data.keys())
     avs = {}
-    for i in range(len(students)):
+    for i in range(len(data)):
         grades = list(data.values())[i]['grades'].values()
         av = reduce(lambda x, y: x + y, grades) / len(grades)
         avs[names[i]] = av
@@ -45,8 +45,8 @@ print()
 
 
 # Задание 3
-def find_student(name: str):
-    result = students.get(name, 'Студент с таким именем не найден')
+def find_student(name: str, data: dict[str, dict]):
+    result = data.get(name, 'Студент с таким именем не найден')
     if isinstance(result, dict):
         print('Имя:', name)
         for key in list(result.keys()):
@@ -54,9 +54,9 @@ def find_student(name: str):
     else:
         print(result)
 
-find_student('John')
+find_student('John', students)
 print()
-find_student('Niels')
+find_student('Niels', students)
 print()
 
 
