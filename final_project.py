@@ -5,21 +5,22 @@ from functools import reduce
 with open('student_list.json', 'r') as file:
     students = json.load(file)
 
+print(students)
+
 
 
 # Задание 1
 def get_average_score(data: dict[str, dict]) -> dict[str, float|int]:
-    names = list(data.keys())
     avs = {}
-    for i in range(len(data)):
-        grades = list(data.values())[i]['grades'].values()
-        av = reduce(lambda x, y: x + y, grades) / len(grades)
-        avs[names[i]] = av
+    for k, v in data.items():
+        grades = v['grades'].values()
+        sum_ = sum(grades)
+        average = sum_/len(grades)
+        avs[k] = average
     return avs
 
-for i in range(len(get_average_score(students))):
-    print(f'Средний балл для студента {list(get_average_score(students).keys())[i]}: '
-          f'{list(get_average_score(students).values())[i]}')
+for key, value in get_average_score(students).items():
+    print(f'Средний балл для студента {key}: {value}')
 print() # визуальный разделитель, не более....
 
 
@@ -48,9 +49,9 @@ print()
 def find_student(name: str, data: dict[str, dict]):
     result = data.get(name, 'Студент с таким именем не найден')
     if isinstance(result, dict):
-        print('Имя:', name)
-        for key in list(result.keys()):
-            print(f'{key}: {result[key]}')
+        print('name:', name)
+        for k, v in result.items():
+            print(f'{k}: {v}')
     else:
         print(result)
 
@@ -62,8 +63,7 @@ print()
 
 
 # Задание 4
-average_scores = get_average_score(students)
-sorted_average_scores = sorted(average_scores.items(), key=lambda x: x[1], reverse=True)
+sorted_average_scores = sorted(get_average_score(students).items(), key=lambda x: x[1], reverse=True)
 
 print('Сортировка студентов по среднему баллу:')
 for info in sorted_average_scores:
